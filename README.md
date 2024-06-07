@@ -46,12 +46,15 @@ const cloverSkipPercentage = 20;
 const consoleRed = 'font-weight: bold; color: red;';
 const consoleGreen = 'font-weight: bold; color: green;';
 const consolePrefix = '%c [AutoBot] ';
+const originalConsoleLog = console.log;
 
 console.log = function () {
   if (arguments[0].includes('[AutoBot]') || arguments[0].includes('github.com')) {
-    Function.prototype.apply.call(console.log, console, arguments);
+    originalConsoleLog.apply(console, arguments);
   }
 };
+
+console.error = console.warn = console.info = console.debug = function () { };
 
 console.clear();
 console.log(`${consolePrefix}Injecting...`, consoleGreen);
